@@ -3,7 +3,7 @@ import pymysql
 class DBHelper:
 
     def __init__(self):
-        self.host = "125.133.82.153"
+        self.host = "192.168.99.921"
         self.user = "service"
         self.password = "service12qw"
         self.db = "desksquare"

@@ -6,14 +6,14 @@ from gensim.models.word2vec import Word2Vec
 from konlpy.tag import Okt
 
 
-#urllib.request.urlretrieve("https://raw.githubusercontent.com/e9t/nsmc/master/ratings.txt", filename="ratings.txt")
+# urllib.request.urlretrieve("https://raw.githubusercontent.com/e9t/nsmc/master/ratings.txt", filename="ratings.txt")
 
 #train_data = pd.read_table('ratings.txt')
 train_data = pd.read_csv('ratings.txt', header=0, delimiter='\t')
 
 print(train_data[:5])
 
-sys.exit(0)
+
 
 print('NULL 값 존재 유무 : ', train_data.isnull().values.any())
 print('리뷰 개수 출력 : ',len(train_data)) # 리뷰 개수 출력
@@ -21,6 +21,8 @@ print('리뷰 개수 출력 : ',len(train_data)) # 리뷰 개수 출력
 train_data = train_data.dropna(how='any') # Null 값이 존재하는 행 제거
 print('NULL 값 존재 유무 : ', train_data.isnull().values.any() )
 print('리뷰 개수 출력 : ',len(train_data)) # 리뷰 개수 출력
+
+
 
 
 # 정규 표현식을 통한 한글 외 문자 제거
@@ -41,5 +43,16 @@ for sentence in train_data['document']:
 
 print( tokenized_data[:5] ) # 상위 5개 출력
 
-model_result = tokenized_data.w
-print(model_result)    
+
+
+
+model = Word2Vec(sentences=tokenized_data, 
+        size=100,
+        window=5,
+        min_count=5,
+        workers=4,
+        sg=0)
+        
+model.wv.most_similar("송강호")
+
+sys.exit(0)
